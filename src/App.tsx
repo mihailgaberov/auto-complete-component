@@ -5,7 +5,7 @@ import Title from "./components/Title";
 function App() {
   return (
     <div className={styles.container}>
-      <Title />
+      <Title content="Countries in Europe" size="big" />
       <Autocomplete />
     </div>
   );

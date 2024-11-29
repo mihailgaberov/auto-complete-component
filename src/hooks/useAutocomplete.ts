@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, KeyboardEvent } from "react";
 import { Country } from "../types";
 import useFetch from "./useFetch";
 
@@ -9,6 +9,13 @@ export default function useAutocomplete() {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState<string>("");
   const [isFiltering, setIsFiltering] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+  const [showSuggestions, setShowSuggestions] = useState(true);
+
+  useEffect(() => {
+    // Reset selected index when filtered data changes
+    setSelectedIndex(-1);
+  }, [filteredData]);
 
   const filterData = async (searchValue: string): Promise<Country[]> => {
     // Simulate network delay
@@ -23,6 +30,7 @@ export default function useAutocomplete() {
     setInputValue(value);
     setSelectedCountry(null);
     setIsFiltering(true);
+    setShowSuggestions(true);
 
     if (!value) {
       setFilteredData([]);
@@ -53,6 +61,41 @@ export default function useAutocomplete() {
     setSelectedCountry(name);
     setFilteredData([]);
     setInputValue("");
+    setShowSuggestions(false);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (!filteredData.length) return;
+
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        setSelectedIndex(prev => 
+          prev < filteredData.length - 1 ? prev + 1 : prev
+        );
+        break;
+
+      case "ArrowUp":
+        e.preventDefault();
+        setSelectedIndex(prev => (prev > 0 ? prev - 1 : prev));
+        break;
+
+      case "Enter":
+        e.preventDefault();
+        if (selectedIndex >= 0) {
+          handleSuggestionClick(filteredData[selectedIndex].name);
+        }
+        break;
+
+      case "Escape":
+        e.preventDefault();
+        setShowSuggestions(false);
+        setFilteredData([]);
+        break;
+
+      default:
+        break;
+    }
   };
 
   return {
@@ -63,7 +106,10 @@ export default function useAutocomplete() {
     isFiltering,
     isLoading,
     fetchError,
+    selectedIndex,
+    showSuggestions,
     handleInputChange,
-    handleSuggestionClick
+    handleSuggestionClick,
+    handleKeyDown
   };
 }

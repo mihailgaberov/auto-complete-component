@@ -2,6 +2,7 @@ import Input from "../Input";
 import Suggestion from "../Suggestion";
 import useAutocomplete from "../../hooks/useAutocomplete";
 import styles from "./Autocomplete.module.scss";
+import Title from "../Title";
 
 export default function Autocomplete() {
   const {
@@ -12,8 +13,11 @@ export default function Autocomplete() {
     isFiltering,
     isLoading,
     fetchError,
+    selectedIndex,
+    showSuggestions,
     handleInputChange,
-    handleSuggestionClick
+    handleSuggestionClick,
+    handleKeyDown,
   } = useAutocomplete();
 
   if (isLoading) {
@@ -26,7 +30,12 @@ export default function Autocomplete() {
 
   return (
     <div className={styles.container}>
-      <Input onChangeHandler={handleInputChange} value={inputValue} />
+      <Title content="Select your country" size="small" />
+      <Input
+        onChangeHandler={handleInputChange}
+        onKeyDown={handleKeyDown}
+        value={inputValue}
+      />
       {isFiltering && <p>Filtering...</p>}
       {!isFiltering && message !== "" && <p>{message}</p>}
       {selectedCountry && (
@@ -34,16 +43,20 @@ export default function Autocomplete() {
           Selected country: <strong>{selectedCountry}</strong>
         </p>
       )}
-      <ul>
-        {filteredData.map((country) => (
-          <Suggestion
-            key={country.name}
-            name={country.name}
-            flag={country.flag}
-            onClickHandler={() => handleSuggestionClick(country.name)}
-          />
-        ))}
-      </ul>
+      {showSuggestions && (
+        <ul>
+          {filteredData.map((country, index) => (
+            <Suggestion
+              key={country.name}
+              name={country.name}
+              flag={country.flag}
+              searchValue={inputValue}
+              isSelected={index === selectedIndex}
+              onClickHandler={() => handleSuggestionClick(country.name)}
+            />
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

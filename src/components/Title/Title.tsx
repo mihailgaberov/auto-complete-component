@@ -1,5 +1,10 @@
 import styles from "./Title.module.scss";
 
-export default function Title() {
-  return <h2 className={styles.container}>Countries in Europe:</h2>;
+type Props = {
+  content: string;
+  size?: "small" | "big";
+};
+
+export default function Title({ content, size = "small" }: Props) {
+  return <h2 className={`${styles.container} ${styles[size]}`}>{content}</h2>;
 }
