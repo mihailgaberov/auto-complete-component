@@ -30,7 +30,7 @@ export default function Autocomplete() {
 
   return (
     <div className={styles.container}>
-      <Title content="Select your country" size="small" />
+      <Title content="Select your country" size="small" position="left" />
       <Input
         onChangeHandler={handleInputChange}
         onKeyDown={handleKeyDown}
