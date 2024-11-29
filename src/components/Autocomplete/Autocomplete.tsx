@@ -3,6 +3,7 @@ import Suggestion from "../Suggestion";
 import useAutocomplete from "../../hooks/useAutocomplete";
 import styles from "./Autocomplete.module.scss";
 import Title from "../Title";
+import Loader from "../Loader";
 
 export default function Autocomplete() {
   const {
@@ -21,7 +22,7 @@ export default function Autocomplete() {
   } = useAutocomplete();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (fetchError) {
