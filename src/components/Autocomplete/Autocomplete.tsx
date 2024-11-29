@@ -1,71 +1,28 @@
-import { useState } from "react";
-import useFetch from "../../hooks/useFetch";
-import { Country } from "../../types";
 import Input from "../Input";
 import Suggestion from "../Suggestion";
-
+import useAutocomplete from "../../hooks/useAutocomplete";
 import styles from "./Autocomplete.module.scss";
 
 export default function Autocomplete() {
-  const { data, loading, error } = useFetch();
-  const [filteredData, setFilteredData] = useState<Country[]>([]);
-  const [message, setMessage] = useState<string>("");
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
-  const [inputValue, setInputValue] = useState<string>("");
-  const [isFiltering, setIsFiltering] = useState(false);
+  const {
+    filteredData,
+    message,
+    selectedCountry,
+    inputValue,
+    isFiltering,
+    isLoading,
+    fetchError,
+    handleInputChange,
+    handleSuggestionClick
+  } = useAutocomplete();
 
-  if (loading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
+  if (fetchError) {
+    return <div>Error: {fetchError}</div>;
   }
-
-  const filterData = async (searchValue: string): Promise<Country[]> => {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
-    return data.filter((country) =>
-      country.name.toLowerCase().startsWith(searchValue.toLowerCase())
-    );
-  };
-
-  const handleInputChange = async (value: string) => {
-    setInputValue(value);
-    setSelectedCountry(null);
-    setIsFiltering(true);
-
-    if (!value) {
-      setFilteredData([]);
-      setMessage("");
-      setIsFiltering(false);
-      return;
-    }
-
-    try {
-      const filtered = await filterData(value);
-      
-      if (filtered.length === 0) {
-        setMessage("No countries found.");
-        setFilteredData([]);
-      } else {
-        setFilteredData(filtered);
-        setMessage("");
-      }
-    } catch (err) {
-      setMessage("Error filtering countries.");
-      setFilteredData([]);
-    } finally {
-      setIsFiltering(false);
-    }
-  };
-
-  const handleSuggestionClick = (name: string) => {
-    setSelectedCountry(name);
-    setFilteredData([]);
-    setInputValue("");
-  };
 
   return (
     <div className={styles.container}>
