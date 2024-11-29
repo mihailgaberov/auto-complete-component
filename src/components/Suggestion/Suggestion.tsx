@@ -8,20 +8,28 @@ interface Props {
   isSelected?: boolean;
 }
 
-export default function Suggestion({ name, flag, onClickHandler, searchValue, isSelected }: Props) {
+export default function Suggestion({
+  name,
+  flag,
+  onClickHandler,
+  searchValue,
+  isSelected,
+}: Props) {
   const highlightText = (text: string, highlight: string) => {
     if (!highlight.trim()) {
       return <span>{text}</span>;
     }
-    
-    const regex = new RegExp(`(${highlight})`, 'gi');
+
+    const regex = new RegExp(`(${highlight})`, "gi");
     const parts = text.split(regex);
-    
+
     return (
       <span>
         {parts.map((part, index) =>
           regex.test(part) ? (
-            <mark key={index} className={styles.highlight}>{part}</mark>
+            <mark key={index} className={styles.highlight}>
+              {part}
+            </mark>
           ) : (
             <span key={index}>{part}</span>
           )
@@ -31,8 +39,8 @@ export default function Suggestion({ name, flag, onClickHandler, searchValue, is
   };
 
   return (
-    <li 
-      className={`${styles.container} ${isSelected ? styles.selected : ''}`}
+    <li
+      className={`${styles.container} ${isSelected ? styles.selected : ""}`}
       onClick={onClickHandler}
     >
       <span className={styles.flag}>{flag}</span>

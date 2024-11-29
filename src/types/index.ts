@@ -1,11 +1,11 @@
 export type ApiCountry = {
-    name: {
-        common: string;
-    };
-    flag: string;
+  name: {
+    common: string;
+  };
+  flag: string;
 };
 
 export type Country = {
-    name: string;
-    flag: string;
-}
+  name: string;
+  flag: string;
+};

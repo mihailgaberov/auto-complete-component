@@ -19,8 +19,8 @@ export default function useAutocomplete() {
 
   const filterData = async (searchValue: string): Promise<Country[]> => {
     // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
     return data.filter((country) =>
       country.name.toLowerCase().startsWith(searchValue.toLowerCase())
     );
@@ -41,7 +41,7 @@ export default function useAutocomplete() {
 
     try {
       const filtered = await filterData(value);
-      
+
       if (filtered.length === 0) {
         setMessage("No countries found.");
         setFilteredData([]);
@@ -70,14 +70,26 @@ export default function useAutocomplete() {
     switch (e.key) {
       case "ArrowDown":
         e.preventDefault();
-        setSelectedIndex(prev => 
+        setSelectedIndex((prev) =>
+          prev < filteredData.length - 1 ? prev + 1 : prev
+        );
+        break;
+
+      case "Tab":
+        e.preventDefault();
+        setSelectedIndex((prev) =>
           prev < filteredData.length - 1 ? prev + 1 : prev
         );
         break;
 
       case "ArrowUp":
         e.preventDefault();
-        setSelectedIndex(prev => (prev > 0 ? prev - 1 : prev));
+        setSelectedIndex((prev) => (prev > 0 ? prev - 1 : prev));
+        break;
+
+      case "Shift+Tab":
+        e.preventDefault();
+        setSelectedIndex((prev) => (prev > 0 ? prev - 1 : prev));
         break;
 
       case "Enter":
@@ -110,6 +122,6 @@ export default function useAutocomplete() {
     showSuggestions,
     handleInputChange,
     handleSuggestionClick,
-    handleKeyDown
+    handleKeyDown,
   };
 }

@@ -10,17 +10,17 @@ export default function useFetch() {
   const fetchData = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const result: Country[] = await fetchCountries();
       setData(result);
-    }catch (err: unknown) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError('An error occurred while fetching countries data.');
-        }
-      }finally {
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An error occurred while fetching countries data.");
+      }
+    } finally {
       setLoading(false);
     }
   };
