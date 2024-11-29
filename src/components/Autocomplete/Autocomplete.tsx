@@ -1,5 +1,6 @@
 import useFetch from "../../hooks/useFetch";
 import Input from "../Input";
+import Suggestion from "../Suggestion";
 
 import styles from "./Autocomplete.module.scss";
 
@@ -21,6 +22,15 @@ export default function Autocomplete() {
   return (
     <div className={styles.container}>
       <Input />
+      <ul>
+        {data.map((country) => (
+          <Suggestion
+            key={country.name}
+            name={country.name}
+            flag={country.flag}
+          />
+        ))}
+      </ul>
     </div>
   );
 }
