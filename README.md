@@ -6,6 +6,7 @@ A React component for auto-completing user input.
 
 - React with TypeScript
 - CSS Modules (Sass)
+- Testing with Vitest and React Testing Library
 
 ### Screenshots
 
