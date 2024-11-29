@@ -76,18 +76,18 @@ export default function useAutocomplete() {
         break;
 
       case "Tab":
-        e.preventDefault();
-        setSelectedIndex((prev) =>
-          prev < filteredData.length - 1 ? prev + 1 : prev
-        );
+        if (e.shiftKey) {
+          e.preventDefault();
+          setSelectedIndex((prev) => (prev > 0 ? prev - 1 : prev));
+        } else {
+          e.preventDefault();
+          setSelectedIndex((prev) =>
+            prev < filteredData.length - 1 ? prev + 1 : prev
+          );
+        }
         break;
 
       case "ArrowUp":
-        e.preventDefault();
-        setSelectedIndex((prev) => (prev > 0 ? prev - 1 : prev));
-        break;
-
-      case "Shift+Tab":
         e.preventDefault();
         setSelectedIndex((prev) => (prev > 0 ? prev - 1 : prev));
         break;
