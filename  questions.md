@@ -51,7 +51,7 @@
 
 4. Give 2 ways to prevent components from re-rendering.
 
-By using React.memo to prevent unnecessary re-renders for functional components based on props. And also by using useMemo to cache expensive calculations and useCallback to memoize functions. With useMemo we make sure the reference to our object doesn't change, i.e. we don't create a new object every time and hence the component doesn't re-render. Which useCallback we make sure the function reference remains stable, so the child component doesn't re-render unnecessarily.
+By using `React.memo` to prevent unnecessary re-renders for functional components based on props. And also by using `useMemo` to cache expensive calculations and `useCallback` to memoize functions. With `useMemo` we make sure the reference to our object doesn't change, i.e. we don't create a new object every time and hence the component doesn't re-render. With `useCallback` we make sure the function reference remains stable, so the child component doesn't re-render unnecessarily.
 
 And as a rule of thumb we should avoid using inline functions and objects when passing props in JSX because they are getting recreated every time the component re-renders.
 
@@ -101,15 +101,11 @@ function Parent() {
 }
 ```
 
-5. What is a fragment and why do we need it? Give an example where it
-   might break my app.
+5. What is a fragment and why do we need it? Give an example where it might break my app.
 
-Fragment is a special wrapper element that we can use in React JSX to group elements without adding any extra DOM nodes to the page and thus polute the DOM with redundant container elements such as
+Fragment is a special wrapper element that we can use in React JSX to group elements without adding any extra DOM nodes to the page and thus polute the DOM with redundant container elements such as `<div>` or `<span>`. It looks like this `<></>` or `<Fragment></Fragment>`. Since React components must return a single element, using a fragment allows us to return multiple elements from a component without needing to use tags like `<div>` just to wrap them and satifsy this rule.
 
-<div> or <span>. It looks like this <></> or <Fragment></Fragment>. Since React components must return a single element, using a fragment allows us to return multiple elements from a component without needing to use tags like <div> just to wrap them and satifsy this rule.
-
-For example:
-Instead of using this:
+For example, instead of using this:
 
 ```javascript
 return (
@@ -131,7 +127,7 @@ return (
 );
 ```
 
-Fragments cannot have attributes such as className or id, and if we need to use such on wrapper level we need to use a tag instead or it will break our app. Also if we use loops in our render we can't go with fragments because JSX doesn't know how to resolve them. We should mentiond here that the long syntax, <Fragment></Fragment> supports key attributes. I.e. if we need to use keys we could to something like:
+Fragments cannot have attributes such as `className` or `id`, and if we need to use such on wrapper level we need to use a tag instead or it will break our app. Also if we use loops in our render we can't go with fragments because JSX doesn't know how to resolve them. We should mentiond here that the long syntax, <Fragment></Fragment> supports key attributes. I.e. if we need to use keys we could to something like:
 
 ```javascript
 return items.map((item) => (
