@@ -8,17 +8,17 @@ class MockIntersectionObserver implements IntersectionObserver {
   readonly thresholds: readonly number[] = [];
 
   constructor(
-    callback: IntersectionObserverCallback,
-    options?: IntersectionObserverInit
+    _callback: IntersectionObserverCallback,
+    _options?: IntersectionObserverInit
   ) {
     // Constructor implementation not needed for mock
   }
 
-  observe(target: Element): void {
+  observe(_target: Element): void {
     // Mock implementation
   }
 
-  unobserve(target: Element): void {
+  unobserve(_target: Element): void {
     // Mock implementation
   }
 
