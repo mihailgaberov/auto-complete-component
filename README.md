@@ -10,7 +10,12 @@ A React component for auto-completing user input.
 
 ### Screenshots
 
+#### Animated Demo
+
 ![Demo](https://github.com/mihailgaberov/auto-complete-component/blob/main/public/demo.gif)
+
+#### Passing Tests
+
 ![Passing Tests](https://github.com/mihailgaberov/auto-complete-component/blob/main/public/passing-tests.png)
 
 ## Application features:
