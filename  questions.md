@@ -37,12 +37,12 @@
    ```
 
    Since PureComponent uses a shallow comparison, it doesn't detect changes to the data object because its reference hasn't changed.
-   As a result, the component doesn't re-render, even though data.value has been updated.
+   As a result, the component doesn't re-render, even though `data.value` has been updated.
 
-2. Context + ShouldComponentUpdate might be dangerous. Why is
+2. `Context` + `ShouldComponentUpdate` might be dangerous. Why is
    that?
 
-   It is not a good idea to use these two together, because the Context updates don't respect the shouldComponentUpdate and will re-render all subscriberd components any time the context changes. This can potentially cause unexpected behavior. The way to go around this is to use useContext hook inside functional components and avoid using shouldComponentUpdate with context dependent components.
+   It is not a good idea to use these two together, because the `Context` updates don't respect the `shouldComponentUpdate` and will re-render all subscriberd components any time the context changes. This can potentially cause unexpected behavior. The way to go around this is to use useContext hook inside functional components and avoid using `shouldComponentUpdate` with context dependent components.
 
 3. Describe 3 ways to pass information from a component to its
    PARENT.
