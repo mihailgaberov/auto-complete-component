@@ -1,3 +1,5 @@
+# Questions and Answers
+
 1. What is the difference between Component and PureComponent?
    Give an example where it might break my app.
 
@@ -7,7 +9,7 @@
    and will re-render every time when its parent re-renders. PureComponent can break the app when we pass props that are not primitive
    data types. For example objects or arrays, like here:
 
-   ```
+   ```javascript
    import React, { PureComponent } from 'react';
 
     class MyPureComponent extends PureComponent {
@@ -55,9 +57,9 @@ And as a rule of thumb we should avoid using inline functions and objects when p
 
 useCallback example:
 
-```
+```javascript
 const Child = React.memo(({ onClick }) => {
-  console.log('>>> render Child');
+  console.log(">>> render Child");
   return <button onClick={onClick}>Click Me</button>;
 });
 
@@ -65,7 +67,7 @@ function Parent() {
   const [count, setCount] = React.useState(0);
 
   const handleClick = React.useCallback(() => {
-    console.log('>>> click');
+    console.log(">>> click");
   }, []);
 
   return (
@@ -79,16 +81,16 @@ function Parent() {
 
 useMemo example:
 
-```
+```javascript
 const Child = React.memo(({ data }) => {
-  console.log('>>> render Child');
+  console.log(">>> render Child");
   return <div>{data.value}</div>;
 });
 
 function Parent() {
   const [count, setCount] = React.useState(0);
 
-  const data = React.useMemo(() => ({ value: 'Hello' }), []);
+  const data = React.useMemo(() => ({ value: "Hello" }), []);
 
   return (
     <div>
@@ -109,7 +111,7 @@ Fragment is a special wrapper element that we can use in React JSX to group elem
 For example:
 Instead of using this:
 
-```
+```javascript
 return (
   <div>
     <h1>My App</h1>
@@ -120,7 +122,7 @@ return (
 
 We can use this:
 
-```
+```javascript
 return (
   <>
     <h1>My App</h1>
@@ -131,7 +133,8 @@ return (
 
 Fragments cannot have attributes such as className or id, and if we need to use such on wrapper level we need to use a tag instead or it will break our app. Also if we use loops in our render we can't go with fragments because JSX doesn't know how to resolve them. We should mentiond here that the long syntax, <Fragment></Fragment> supports key attributes. I.e. if we need to use keys we could to something like:
 
-```return items.map(item => (
+```javascript
+return items.map((item) => (
   <React.Fragment key={item}>
     <li>{item}</li>
   </React.Fragment>
@@ -146,14 +149,14 @@ And this will work in a loop.
 
    For example we can use HOC to create a protected route that only authorized users can access we could do something like this:
 
-   ```
+   ```javascript
    const withAuthorization = (WrappedComponent) => {
-        return (props) => {
-            if (!props.isAuthenticated) {
-                return <div>Please log in to access this page.</div>;
-            }
-            return <WrappedComponent {...props} />;
-        };
+     return (props) => {
+       if (!props.isAuthenticated) {
+         return <div>Please log in to access this page.</div>;
+       }
+       return <WrappedComponent {...props} />;
+     };
    };
 
    const Dashboard = () => <div>Welcome to the Dashboard!</div>;
@@ -162,23 +165,97 @@ And this will work in a loop.
    <ProtectedDashboard isAuthenticated={true} />;
    ```
 
+7. What's the difference in handling exceptions in promises,
+   callbacks and async…await?
+   Promises provide built-in mechanism for handling async operations and errors using .then() and .catch() methods - error thrown inside .then() block or rejected promises are caught by .catch() block. Example would be:
+
+```javascript
+fetchDataPromise()
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 ```
 
+Callbacks are older mechanism for handling async operations where error handling is typically done manually by catching the error as a first argument (Node.js style) in a if() statement. The callback's arguments are usually called err and result, where the first one is the error and then is the result. Simnple example would be:
 
-7. What's the difference in handling exceptions in promises,
-callbacks and async…await?0
+```javascript
+fetchDataCallback((err, data) => {
+  if (err) {
+    console.error("Caught in callback:", err);
+  } else {
+    console.log(data);
+  }
+});
+```
+
+async/await is a syntax sugar over promises, it makes asynchronous code look like synchronous and it uses try/catch blocks to handle errors. Example would be:
+
+```javascript
+try {
+  const data = await fetchData();
+  console.log(data);
+} catch (err) {
+  console.error(err);
+}
+```
 
 8. How many arguments does setState take and why is it async.
 
+`setState` takes two arguments - the state update (which may be an object or a function) and an optional callback function that will be called after the state is updated. The callback function is optional and can be used to perform additional actions after the state has been updated and the component has been re-rendered.
+
+Example of using it with both arguments:
+
+```javascript
+const [count, setCount] = useState(0);
+
+setCount(
+  (prevCount) => prevCount + 1,
+  () => {
+    console.log("Count updated:", count);
+  }
+);
+```
+
+It is async because of the way React does the updates during its re-render cycles - for better performance it batches multiple setState calls together and applies them in a single re-render cycle. This also contributes to avoid race conditions and ensure consistency of the state.
+
 9. List the steps needed to migrate a Class to Function
-Component.
+   Component.
+   Here are the steps I will follow (not mandatory in this order):
+
+- Change the class signature to a function signature.
+- Remove the `constructor`, `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` methods.
+- Remove the `this` keyword from the class methods and replace it with the function names.
+- Use `useEffect` hooks instead of `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount`.
+- Use `setState` for managing the state instead of `this.setState`.
+- Replace React.createRef() and ref usage in class components with the useRef hook.
+- Remove the `render` method and replace it with a return statement containing the JSX.
 
 10. List a few ways styles can be used with components.
 
+I am familiar with the following styling techniques:
+
+- Inline styles
+- Plain CSS
+- SASS/SCSS
+- CSS modules
+- CSS-in-JS (Styled Components or Emotion)
+- Utility-First CSS Frameworks (such as Tailwind CSS)
+- Global CSS Frameworks (such as Bootstrap or Foundation)
+- Theme Providers (Styled Components, Emotion, MUI)
+- Atomic CSS (BEM or OOCSS Methodology)
+- Component Libraries (e.g., Material-UI, Chakra UI)
+
 11. How to render an HTML string coming from the server.
+    By deserialize and sanitize it first - the html from the server often comes as part of a JSON or plain text and we must make sure to parse it properly and avoid any security issues. This is so because HTML strings can contain malicious code and should be sanitized before being rendered. We can use the `dangerouslySetInnerHTML` prop to render the HTML string safely. Example:
 
+```javascript
+const htmlString = "<h1>Hello, world!</h1>";
+return <div dangerouslySetInnerHTML={{ __html: htmlString }} />;
 ```
 
-```
+We should always sanitize the HTML string before rendering, especially if it comes from an untrusted source.
 
-```
+If we control the server we may use another approach - instead of sending raw HTML we send JSON that we could map through in a JSX component.
