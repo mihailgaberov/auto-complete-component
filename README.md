@@ -41,7 +41,7 @@ To install dependencies:
 To run the client app:
 
 ```shell
-  npm start
+  npm run dev
 ```
 
 To run the tests:
