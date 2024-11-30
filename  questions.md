@@ -4,7 +4,7 @@
    Give an example where it might break my app.
 
    PureComponent is a React component that is optimized for performance. It does a shallow comparison of props and
-   state, and only re-renders if the props or state have changed. This is done in shouldComponentUpdate method,
+   state, and only re-renders if the props or state have changed. This is done in `shouldComponentUpdate` method,
    whereas the regular component doesn't implement this method by default
    and will re-render every time when its parent re-renders. PureComponent can break the app when we pass props that are not primitive
    data types. For example objects or arrays, like here:
