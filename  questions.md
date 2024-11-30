@@ -47,7 +47,7 @@
 3. Describe 3 ways to pass information from a component to its
    PARENT.
 
-   The most common and direct way to pass information is via callback functions. The parent pass the callback function as a prop to the child component and the child calls the callback function with the information it needs. Other methods would be by using React Context API or a 3rd party state management library (e.g. Redux, Jotai, Zustand). Both methods allows parent and child components to access shared store/state and call functions to update it. There are also some not that famouse methods for passing data from child to parent, like using refs (which is more imperative way where the child exposes methods or data to the parent through a ref) or event bubbling (standard DOM events that use the 'window' object 'dispatchEvent' method).
+   The most common and direct way to pass information is via callback functions. The parent pass the callback function as a prop to the child component and the child calls the callback function with the information it needs. Other methods would be by using React Context API or a 3rd party state management library (e.g. Redux, Jotai, Zustand). Both methods allows parent and child components to access shared store/state and call functions to update it. There are also some not that famouse methods for passing data from child to parent, like using refs (which is more imperative way where the child exposes methods or data to the parent through a ref) or event bubbling (standard DOM events that use the `window` object `dispatchEvent` method).
 
 4. Give 2 ways to prevent components from re-rendering.
 
