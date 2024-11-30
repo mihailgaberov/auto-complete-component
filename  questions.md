@@ -102,19 +102,82 @@ function Parent() {
 5. What is a fragment and why do we need it? Give an example where it
    might break my app.
 
+Fragment is a special wrapper element that we can use in React JSX to group elements without adding any extra DOM nodes to the page and thus polute the DOM with redundant container elements such as
+
+<div> or <span>. It looks like this <></> or <Fragment></Fragment>. Since React components must return a single element, using a fragment allows us to return multiple elements from a component without needing to use tags like <div> just to wrap them and satifsy this rule.
+
+For example:
+Instead of using this:
+
+```
+return (
+  <div>
+    <h1>My App</h1>
+    <p>Some text</p>
+  </div>
+);
+```
+
+We can use this:
+
+```
+return (
+  <>
+    <h1>My App</h1>
+    <p>Some text</p>
+  </>
+);
+```
+
+Fragments cannot have attributes such as className or id, and if we need to use such on wrapper level we need to use a tag instead or it will break our app. Also if we use loops in our render we can't go with fragments because JSX doesn't know how to resolve them. We should mentiond here that the long syntax, <Fragment></Fragment> supports key attributes. I.e. if we need to use keys we could to something like:
+
+```return items.map(item => (
+  <React.Fragment key={item}>
+    <li>{item}</li>
+  </React.Fragment>
+));
+```
+
+And this will work in a loop.
+
 6. Give 3 examples of the HOC pattern.
+   HOC is a design pattern that allows us to reuse component logic by wrapping it in another component. It is a way to add new behavior to an existing component without modifying its code. Examples of HOC could be:
+   useAuthorization, useLoading, useLogging - all of these add functionality to the existing component by wrapping it and 'attaching' the new behavior to it.
+
+   For example we can use HOC to create a protected route that only authorized users can access we could do something like this:
+
+   ```
+   const withAuthorization = (WrappedComponent) => {
+        return (props) => {
+            if (!props.isAuthenticated) {
+                return <div>Please log in to access this page.</div>;
+            }
+            return <WrappedComponent {...props} />;
+        };
+   };
+
+   const Dashboard = () => <div>Welcome to the Dashboard!</div>;
+   const ProtectedDashboard = withAuthorization(Dashboard);
+
+   <ProtectedDashboard isAuthenticated={true} />;
+   ```
+
+```
+
 
 7. What's the difference in handling exceptions in promises,
-   callbacks and async…await?
+callbacks and async…await?0
 
 8. How many arguments does setState take and why is it async.
 
 9. List the steps needed to migrate a Class to Function
-   Component.
+Component.
 
 10. List a few ways styles can be used with components.
 
 11. How to render an HTML string coming from the server.
+
+```
 
 ```
 
