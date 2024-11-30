@@ -1,16 +1,38 @@
 import "@testing-library/jest-dom";
+import { vi } from "vitest";
 
-// Mock IntersectionObserver if needed
-class IntersectionObserver {
-  observe() {
-    return null;
+// Mock IntersectionObserver
+class MockIntersectionObserver implements IntersectionObserver {
+  readonly root: Element | null = null;
+  readonly rootMargin: string = "";
+  readonly thresholds: readonly number[] = [];
+
+  constructor(
+    callback: IntersectionObserverCallback,
+    options?: IntersectionObserverInit
+  ) {
+    // Constructor implementation not needed for mock
   }
-  disconnect() {
-    return null;
+
+  observe(target: Element): void {
+    // Mock implementation
   }
-  unobserve() {
-    return null;
+
+  unobserve(target: Element): void {
+    // Mock implementation
+  }
+
+  disconnect(): void {
+    // Mock implementation
+  }
+
+  takeRecords(): IntersectionObserverEntry[] {
+    return [];
   }
 }
 
-window.IntersectionObserver = IntersectionObserver;
+window.IntersectionObserver = MockIntersectionObserver;
+
+beforeEach(() => {
+  vi.clearAllMocks();
+});
