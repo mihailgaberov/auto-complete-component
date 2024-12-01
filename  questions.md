@@ -140,10 +140,11 @@ return items.map((item) => (
 And this will work in a loop.
 
 6. Give 3 examples of the HOC pattern.
+
    HOC is a design pattern that allows us to reuse component logic by wrapping it in another component. It is a way to add new behavior to an existing component without modifying its code. Examples of HOC could be:
    useAuthorization, useLoading, useLogging - all of these add functionality to the existing component by wrapping it and 'attaching' the new behavior to it.
 
-   For example we can use HOC to create a protected route that only authorized users can access we could do something like this:
+   For example we can use HOC to create a protected route that only authorized users can access. We could do something like this:
 
    ```javascript
    const withAuthorization = (WrappedComponent) => {
@@ -163,6 +164,7 @@ And this will work in a loop.
 
 7. What's the difference in handling exceptions in promises,
    callbacks and async…await?
+
    Promises provide built-in mechanism for handling async operations and errors using .then() and .catch() methods - error thrown inside .then() block or rejected promises are caught by .catch() block. Example would be:
 
 ```javascript
@@ -175,7 +177,7 @@ fetchDataPromise()
   });
 ```
 
-Callbacks are older mechanism for handling async operations where error handling is typically done manually by catching the error as a first argument (Node.js style) in a if() statement. The callback's arguments are usually called err and result, where the first one is the error and then is the result. Simnple example would be:
+Callbacks are older mechanism for handling async operations where error handling is typically done manually by catching the error as a first argument (Node.js style) in a if() statement. The callback's arguments are usually called `err` and `data`, where the first one is the error and then is the result. Simnple example would be:
 
 ```javascript
 fetchDataCallback((err, data) => {
@@ -187,14 +189,16 @@ fetchDataCallback((err, data) => {
 });
 ```
 
-async/await is a syntax sugar over promises, it makes asynchronous code look like synchronous and it uses try/catch blocks to handle errors. Example would be:
+`async/await` is a syntax sugar over promises, it makes asynchronous code look like synchronous and it uses `try/catch` blocks to handle errors. Example would be:
 
 ```javascript
-try {
-  const data = await fetchData();
-  console.log(data);
-} catch (err) {
-  console.error(err);
+async function fetchData() {
+  try {
+    const data = await fetchDataPromise();
+    console.log(data);
+  } catch (err) {
+    console.error(err);
+  }
 }
 ```
 
