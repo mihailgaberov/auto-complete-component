@@ -3,7 +3,7 @@
 1. What is the difference between Component and PureComponent?
    Give an example where it might break my app.
 
-   PureComponent is a React component that is optimized for performance. It does a shallow comparison of props and
+   `PureComponent` is a React component that is optimized for performance. It does a shallow comparison of props and
    state, and only re-renders if the props or state have changed. This is done in `shouldComponentUpdate` method,
    whereas the regular component doesn't implement this method by default
    and will re-render every time when its parent re-renders. PureComponent can break the app when we pass props that are not primitive
@@ -47,7 +47,7 @@
 3. Describe 3 ways to pass information from a component to its
    PARENT.
 
-   The most common and direct way to pass information is via callback functions. The parent pass the callback function as a prop to the child component and the child calls the callback function with the information it needs. Other methods would be by using React Context API or a 3rd party state management library (e.g. Redux, Jotai, Zustand). Both methods allows parent and child components to access shared store/state and call functions to update it. There are also some not that famouse methods for passing data from child to parent, like using refs (which is more imperative way where the child exposes methods or data to the parent through a ref) or event bubbling (standard DOM events that use the `window` object `dispatchEvent` method).
+   The most common and direct way to pass information is via callback functions. The parent pass the callback function as a prop to the child component and the child calls the callback function with the information it needs. Other methods would be by using React Context API or a 3rd party state management library (e.g. Redux, Jotai, Zustand). Both methods allows parent and child components to access shared store/state and call functions to update it. There are also some not that famouse methods for passing data from child to parent, like using refs (which is more imperative way, where the child exposes methods or data to the parent through a ref) or event bubbling (standard DOM events that use the `window` object's `dispatchEvent` method).
 
 4. Give 2 ways to prevent components from re-rendering.
 
@@ -127,7 +127,7 @@ return (
 );
 ```
 
-Fragments cannot have attributes such as `className` or `id`, and if we need to use such on wrapper level we need to use a tag instead or it will break our app. Also if we use loops in our render we can't go with fragments because JSX doesn't know how to resolve them. We should mentiond here that the long syntax, <Fragment></Fragment> supports key attributes. I.e. if we need to use keys we could to something like:
+Fragments cannot have attributes such as `className` or `id`, and if we need to use such on wrapper level we need to use a tag instead or it will break our app. Also if we use loops in our render we can't go with fragments because JSX doesn't know how to resolve them. We should mention here that the long syntax, `<Fragment></Fragment>`, supports key attributes. I.e. if we need to use keys we could to something like:
 
 ```javascript
 return items.map((item) => (
