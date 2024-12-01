@@ -202,27 +202,21 @@ async function fetchData() {
 }
 ```
 
-8. How many arguments does setState take and why is it async.
+8. How many arguments does `setState` take and why is it async.
 
 `setState` takes two arguments - the state update (which may be an object or a function) and an optional callback function that will be called after the state is updated. The callback function is optional and can be used to perform additional actions after the state has been updated and the component has been re-rendered.
 
-Example of using it with both arguments:
+Example of using it with both arguments (it must be in class component, as useState and useReducer hooks don't support the second callback argument):
 
 ```javascript
-const [count, setCount] = useState(0);
-
-setCount(
-  (prevCount) => prevCount + 1,
-  () => {
-    console.log("Count updated:", count);
-  }
-);
+this.setState({ count: this.state.count + 1 }, console.log(">>> Kaboooom"));
 ```
 
 It is async because of the way React does the updates during its re-render cycles - for better performance it batches multiple setState calls together and applies them in a single re-render cycle. This also contributes to avoid race conditions and ensure consistency of the state.
 
 9. List the steps needed to migrate a Class to Function
    Component.
+
    Here are the steps I will follow (not mandatory in this order):
 
 - Change the class signature to a function signature.
@@ -230,7 +224,7 @@ It is async because of the way React does the updates during its re-render cycle
 - Remove the `this` keyword from the class methods and replace it with the function names.
 - Use `useEffect` hooks instead of `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount`.
 - Use `setState` for managing the state instead of `this.setState`.
-- Replace React.createRef() and ref usage in class components with the useRef hook.
+- Replace `React.createRef()` and ref usage in class components with the `useRef` hook.
 - Remove the `render` method and replace it with a return statement containing the JSX.
 
 10. List a few ways styles can be used with components.
@@ -249,6 +243,7 @@ I am familiar with the following styling techniques:
 - Component Libraries (e.g., Material-UI, Chakra UI)
 
 11. How to render an HTML string coming from the server.
+
     By deserialize and sanitize it first - the html from the server often comes as part of a JSON or plain text and we must make sure to parse it properly and avoid any security issues. This is so because HTML strings can contain malicious code and should be sanitized before being rendered. We can use the `dangerouslySetInnerHTML` prop to render the HTML string safely. Example:
 
 ```javascript
