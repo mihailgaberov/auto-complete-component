@@ -1,9 +1,10 @@
-import Input from "../Input";
-import Suggestion from "../Suggestion";
-import useAutocomplete from "../../hooks/useAutocomplete";
+import Input from "@/components/Input";
+import Suggestion from "@/components/Suggestion";
+import useAutocomplete from "@/hooks/useAutocomplete";
+import Title from "@/components/Title";
+import Loader from "@/components/Loader";
+
 import styles from "./Autocomplete.module.scss";
-import Title from "../Title";
-import Loader from "../Loader";
 
 export default function Autocomplete() {
   const {

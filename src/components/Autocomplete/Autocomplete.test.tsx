@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { vi } from "vitest";
 import Autocomplete from "./Autocomplete";
-import * as useFetchHook from "../../hooks/useFetch";
+import * as useFetchHook from "@/hooks/useFetch";
 
 // Mock data
 const mockCountries = [

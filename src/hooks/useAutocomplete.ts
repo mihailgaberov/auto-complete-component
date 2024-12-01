@@ -1,5 +1,5 @@
 import { useState, useEffect, KeyboardEvent } from "react";
-import { Country } from "../types";
+import { Country } from "@/types";
 import useFetch from "./useFetch";
 
 export default function useAutocomplete() {

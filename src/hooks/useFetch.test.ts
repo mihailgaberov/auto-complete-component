@@ -1,7 +1,7 @@
 import { act, renderHook, waitFor } from "@testing-library/react";
 import { vi } from "vitest";
 import useFetch from "./useFetch";
-import * as countriesApi from "../api/countriesApi";
+import * as countriesApi from "@/api/countriesApi";
 
 // Mock the API module
 vi.mock("../api/countriesApi", () => ({

@@ -1,6 +1,7 @@
+import Autocomplete from "@/components/Autocomplete";
+import Title from "@/components/Title";
+
 import styles from "./App.module.scss";
-import Autocomplete from "./components/Autocomplete";
-import Title from "./components/Title";
 
 function App() {
   return (

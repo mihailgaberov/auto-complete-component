@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { fetchCountries } from "../api/countriesApi";
-import { Country } from "../types";
+import { fetchCountries } from "@/api/countriesApi";
+import { Country } from "@/types";
 
 export default function useFetch() {
   const [data, setData] = useState<Country[]>([]);
