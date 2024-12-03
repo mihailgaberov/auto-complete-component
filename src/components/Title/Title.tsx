@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./Title.module.scss";
 
 type Props = {
@@ -6,7 +7,7 @@ type Props = {
   position?: "center" | "left";
 };
 
-export default function Title({
+export default React.memo(function Title({
   content,
   size = "small",
   position = "center",
@@ -16,4 +17,4 @@ export default function Title({
       {content}
     </h2>
   );
-}
+});
