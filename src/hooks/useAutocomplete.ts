@@ -1,6 +1,7 @@
 import { useState, useEffect, KeyboardEvent } from "react";
 import { Country } from "@/types";
 import useFetch from "./useFetch";
+import useThrowAsyncError from "./useAsyncError";
 
 export default function useAutocomplete() {
   const { data, loading: isLoading, error: fetchError } = useFetch();
@@ -11,6 +12,7 @@ export default function useAutocomplete() {
   const [isFiltering, setIsFiltering] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [showSuggestions, setShowSuggestions] = useState(true);
+  const throwAsyncError = useThrowAsyncError();
 
   useEffect(() => {
     // Reset selected index when filtered data changes
@@ -52,6 +54,7 @@ export default function useAutocomplete() {
     } catch (err) {
       setMessage("Error filtering countries.");
       setFilteredData([]);
+      throwAsyncError(err);
     } finally {
       setIsFiltering(false);
     }
