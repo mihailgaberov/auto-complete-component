@@ -177,7 +177,7 @@ fetchDataPromise()
   });
 ```
 
-Callbacks are older mechanism for handling async operations where error handling is typically done manually by catching the error as a first argument (Node.js style) in a if() statement. The callback's arguments are usually called `err` and `data`, where the first one is the error and then is the result. Simnple example would be:
+Callbacks are older mechanism for handling async operations where error handling is typically done manually by catching the error as a first argument (Node.js style) in a if() statement. The callback's arguments are usually called `err` and `data`, where the first one is the error and then is the result. Simple example would be:
 
 ```javascript
 fetchDataCallback((err, data) => {
