@@ -35,7 +35,7 @@ export default function useAutocomplete() {
     setShowSuggestions(true);
 
     if (!value) {
-      setFilteredData([]);
+      setFilteredData(data);
       setMessage("");
       setIsFiltering(false);
       return;
@@ -58,6 +58,11 @@ export default function useAutocomplete() {
     } finally {
       setIsFiltering(false);
     }
+  };
+
+  const handleInputFocus = () => {
+    setFilteredData(data);
+    setShowSuggestions(true);
   };
 
   const handleSuggestionClick = (name: string) => {
@@ -124,6 +129,7 @@ export default function useAutocomplete() {
     selectedIndex,
     showSuggestions,
     handleInputChange,
+    handleInputFocus,
     handleSuggestionClick,
     handleKeyDown,
   };

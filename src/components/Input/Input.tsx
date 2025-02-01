@@ -5,10 +5,11 @@ import styles from "./Input.module.scss";
 interface Props {
   onChangeHandler: (value: string) => void;
   onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void;
+  onFocus: () => void;
   value: string;
 }
 
-export default function Input({ onChangeHandler, onKeyDown, value }: Props) {
+export default function Input({ onChangeHandler, onKeyDown, onFocus, value }: Props) {
   const inputSearchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -29,6 +30,7 @@ export default function Input({ onChangeHandler, onKeyDown, value }: Props) {
       type="text"
       onChange={handleInputChange}
       onKeyDown={onKeyDown}
+      onFocus={onFocus}
       value={value}
       className={styles.container}
       placeholder="Type a country name..."

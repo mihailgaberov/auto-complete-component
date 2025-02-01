@@ -18,6 +18,7 @@ export default function Autocomplete() {
     selectedIndex,
     showSuggestions,
     handleInputChange,
+    handleInputFocus,
     handleSuggestionClick,
     handleKeyDown,
   } = useAutocomplete();
@@ -35,6 +36,7 @@ export default function Autocomplete() {
       <Title content="Select your country" size="small" position="left" />
       <Input
         onChangeHandler={handleInputChange}
+        onFocus={handleInputFocus}
         onKeyDown={handleKeyDown}
         value={inputValue}
       />
