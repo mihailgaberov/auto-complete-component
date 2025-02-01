@@ -172,14 +172,14 @@ describe("useAutocomplete Hook", () => {
     expect(result.current.selectedIndex).toBe(0);
   });
 
-  it("should clear input and reset state when input is empty", async () => {
+  it("should show all countries when input is empty but on focus", async () => {
     const { result } = renderHook(() => useAutocomplete());
 
     await act(async () => {
       await result.current.handleInputChange("");
     });
 
-    expect(result.current.filteredData).toEqual([]);
+    expect(result.current.filteredData).toEqual(mockCountries);
     expect(result.current.message).toBe("");
     expect(result.current.isFiltering).toBe(false);
   });
