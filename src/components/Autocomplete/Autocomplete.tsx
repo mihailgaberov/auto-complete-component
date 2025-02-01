@@ -39,12 +39,15 @@ export default function Autocomplete() {
         value={inputValue}
       />
       {isFiltering && <p>Filtering...</p>}
+
       {!isFiltering && message !== "" && <p>{message}</p>}
+      
       {selectedCountry && (
         <p>
           Selected country: <strong>{selectedCountry}</strong>
         </p>
       )}
+      
       {showSuggestions && (
         <ul>
           {filteredData.map((country, index) => (

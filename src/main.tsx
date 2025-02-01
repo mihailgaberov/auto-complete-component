@@ -8,23 +8,22 @@ type State = { hasError: boolean };
 class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    // initialize the error state
+
     this.state = { hasError: false };
   }
 
-  // if an error happened, set the state to true
   static getDerivedStateFromError() {
     return { hasError: true };
   }
 
   componentDidCatch(error: any, errorInfo: any) {
-    // send error to somewhere here
     console.log(error, errorInfo);
   }
 
   render() {
-    // if error happened, return a fallback component
-    if (this.state.hasError) return this.props.fallback;
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
 
     return this.props.children;
   }
