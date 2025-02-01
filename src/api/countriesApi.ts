@@ -1,11 +1,8 @@
 import { ApiCountry, Country } from "../types";
 
-const COUNTRIES_API_URL = "https://restcountries.com/v3.1/region/europe/"
-
+const COUNTRIES_API_URL = "https://restcountries.com/v3.1/region/europe/";
 export async function fetchCountries() {
-  const response = await fetch(
-    COUNTRIES_API_URL
-  );
+  const response = await fetch(COUNTRIES_API_URL);
 
   if (!response.ok) {
     throw new Error(`Countries API error: ${response.status}`);
@@ -18,6 +15,8 @@ export async function fetchCountries() {
       flag: country.flag,
     };
   });
+
+  countries.sort((a, b) => a.name.localeCompare(b.name));
 
   return countries;
 }
