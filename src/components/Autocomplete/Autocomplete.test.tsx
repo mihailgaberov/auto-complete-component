@@ -141,9 +141,7 @@ describe("Autocomplete Component", () => {
 
     // Press arrow down to select first item
     fireEvent.keyDown(input, { key: "ArrowDown" });
-    expect(screen.getByText("bania").parentElement?.parentElement).toHaveClass(
-      "selected"
-    );
+    expect(screen.getByText("bania").parentElement).toHaveClass("selected");
 
     // Press enter to select
     fireEvent.keyDown(input, { key: "Enter" });
