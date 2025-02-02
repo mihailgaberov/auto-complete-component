@@ -15,7 +15,6 @@ export default function useAutocomplete() {
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [showSuggestions, setShowSuggestions] = useState(true);
   const throwAsyncError = useThrowAsyncError();
-  const debouncedInputValue = useDebounce(inputValue, 300);
 
   useEffect(() => {
     // Reset selected index when filtered data changes
@@ -48,12 +47,12 @@ export default function useAutocomplete() {
     setIsFiltering(true);
     setShowSuggestions(true);
 
-      if (!debouncedInputValue) {
-        setFilteredData(data);
-        setMessage("");
-        setIsFiltering(false);
-        return;
-      }
+    if (!value) {
+      setFilteredData(data);
+      setMessage("");
+      setIsFiltering(false);
+      return;
+    }
 
     try {
       if (filteredData.length === 0) {
