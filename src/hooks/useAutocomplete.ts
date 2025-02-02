@@ -2,9 +2,11 @@ import { useState, useEffect, KeyboardEvent } from "react";
 import { Country } from "@/types";
 import useFetch from "./useFetch";
 import useThrowAsyncError from "./useAsyncError";
+import { useDebounce } from "./useDebounce";
 
 export default function useAutocomplete() {
-  const { data, loading: isLoading, error: fetchError } = useFetch();
+  const { fetchData, data, loading: isLoading, error: fetchError } = useFetch();
+
   const [filteredData, setFilteredData] = useState<Country[]>([]);
   const [message, setMessage] = useState<string>("");
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
@@ -19,16 +21,27 @@ export default function useAutocomplete() {
     setSelectedIndex(-1);
   }, [filteredData]);
 
-  const filterData = async (searchValue: string): Promise<Country[]> => {
+  const filterData = async (searchValue: string) => {
     // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, 300));
 
-    return data.filter((country) =>
-      country.name.toLowerCase().startsWith(searchValue.toLowerCase())
+    setFilteredData(
+      data.filter((country) =>
+        country.name.toLowerCase().startsWith(searchValue.toLowerCase())
+      )
     );
   };
 
+  const debouncedRequest = useDebounce(async () => {
+    await fetchData();
+    setFilteredData(data);
+
+    filterData(inputValue);
+    console.log(`Debounced request for: ${inputValue}`);
+  });
+
   const handleInputChange = async (value: string) => {
+    debouncedRequest();
     setInputValue(value);
     setSelectedCountry(null);
     setIsFiltering(true);
@@ -42,13 +55,11 @@ export default function useAutocomplete() {
     }
 
     try {
-      const filtered = await filterData(value);
-
-      if (filtered.length === 0) {
+      if (filteredData.length === 0) {
         setMessage("No countries found.");
         setFilteredData([]);
       } else {
-        setFilteredData(filtered);
+        setFilteredData(filteredData);
         setMessage("");
       }
     } catch (err) {
