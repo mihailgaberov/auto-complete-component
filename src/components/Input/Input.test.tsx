@@ -10,7 +10,6 @@ describe("Input Component", () => {
         onKeyDown={() => {}}
         value=""
         onFocus={() => {}}
-        onFocusOut={() => {}}
       />
     );
     expect(screen.getByRole("textbox")).toBeInTheDocument();
@@ -24,7 +23,6 @@ describe("Input Component", () => {
         onKeyDown={() => {}}
         value=""
         onFocus={() => {}}
-        onFocusOut={() => {}}
       />
     );
     const input = screen.getByRole("textbox");
@@ -39,7 +37,6 @@ describe("Input Component", () => {
         onKeyDown={() => {}}
         value=""
         onFocus={() => {}}
-        onFocusOut={() => {}}
       />
     );
     expect(screen.getByRole("textbox")).toHaveFocus();
@@ -52,7 +49,6 @@ describe("Input Component", () => {
         onKeyDown={() => {}}
         value=""
         onFocus={() => {}}
-        onFocusOut={() => {}}
       />
     );
     expect(
