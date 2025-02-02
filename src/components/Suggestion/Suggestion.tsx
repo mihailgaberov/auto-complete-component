@@ -24,7 +24,9 @@ export default function Suggestion({
     if (match) {
       return (
         <span>
-          <mark className={styles.highlight}>{match[0]}</mark>
+          <mark className={styles.highlight} data-testid="highlighted-text">
+            {match[0]}
+          </mark>
           {text.substring(match[0].length)}
         </span>
       );
