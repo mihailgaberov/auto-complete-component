@@ -65,11 +65,6 @@ export default function useAutocomplete() {
     setShowSuggestions(true);
   };
 
-  const handleInputFocusOut = () => {
-    setFilteredData([]);
-    setShowSuggestions(false);
-  };
-
   const handleSuggestionClick = (name: string) => {
     setSelectedCountry(name);
     setFilteredData([]);
@@ -135,7 +130,6 @@ export default function useAutocomplete() {
     showSuggestions,
     handleInputChange,
     handleInputFocus,
-    handleInputFocusOut,
     handleSuggestionClick,
     handleKeyDown,
   };

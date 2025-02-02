@@ -19,7 +19,6 @@ export default function Autocomplete() {
     showSuggestions,
     handleInputChange,
     handleInputFocus,
-    handleInputFocusOut,
     handleSuggestionClick,
     handleKeyDown,
   } = useAutocomplete();
@@ -38,7 +37,6 @@ export default function Autocomplete() {
       <Input
         onChangeHandler={handleInputChange}
         onFocus={handleInputFocus}
-        onFocusOut={handleInputFocusOut}
         onKeyDown={handleKeyDown}
         value={inputValue}
       />
@@ -54,20 +52,22 @@ export default function Autocomplete() {
 
       {showSuggestions && (
         <ul>
-          {filteredData.map((country, index) => (
-            <li
-              onClick={() => handleSuggestionClick(country.name)}
-              key={country.name}
-            >
-              <Suggestion
+          {filteredData.map((country, index) => {
+            return (
+              <li
+                onClick={() => handleSuggestionClick(country.name)}
                 key={country.name}
-                name={country.name}
-                flag={country.flag}
-                searchValue={inputValue}
-                isSelected={index === selectedIndex}
-              />
-            </li>
-          ))}
+              >
+                <Suggestion
+                  key={country.name}
+                  name={country.name}
+                  flag={country.flag}
+                  searchValue={inputValue}
+                  isSelected={index === selectedIndex}
+                />
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>
