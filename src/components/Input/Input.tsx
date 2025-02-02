@@ -6,7 +6,6 @@ interface Props {
   onChangeHandler: (value: string) => void;
   onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void;
   onFocus: () => void;
-  onFocusOut: () => void;
   value: string;
 }
 
@@ -14,7 +13,6 @@ export default function Input({
   onChangeHandler,
   onKeyDown,
   onFocus,
-  onFocusOut,
   value,
 }: Props) {
   const inputSearchRef = useRef<HTMLInputElement>(null);
@@ -38,7 +36,6 @@ export default function Input({
       onChange={handleInputChange}
       onKeyDown={onKeyDown}
       onFocus={onFocus}
-      onBlur={onFocusOut}
       value={value}
       className={styles.container}
       placeholder="Type a country name..."
