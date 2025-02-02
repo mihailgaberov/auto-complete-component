@@ -12,4 +12,6 @@ function App() {
   );
 }
 
-export default App;
+export default function AppWrapper() {
+  return <App />;
+}
