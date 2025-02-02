@@ -18,22 +18,19 @@ export default function Suggestion({
       return <span>{text}</span>;
     }
 
-    const regex = new RegExp(`(${highlight})`, "gi");
-    const parts = text.split(regex);
+    const regex = new RegExp(`^(${highlight})`, "i");
+    const match = text.match(regex);
 
-    return (
-      <span>
-        {parts.map((part, index) =>
-          regex.test(part) ? (
-            <mark key={index} className={styles.highlight}>
-              {part}
-            </mark>
-          ) : (
-            <span key={index}>{part}</span>
-          )
-        )}
-      </span>
-    );
+    if (match) {
+      return (
+        <span>
+          <mark className={styles.highlight}>{match[0]}</mark>
+          {text.substring(match[0].length)}
+        </span>
+      );
+    }
+
+    return <span>{text}</span>;
   };
 
   return (
