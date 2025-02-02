@@ -2,6 +2,7 @@ import { useState, useEffect, KeyboardEvent } from "react";
 import { Country } from "@/types";
 import useFetch from "./useFetch";
 import useThrowAsyncError from "./useAsyncError";
+import useDebounce from "./useDebounce";
 
 export default function useAutocomplete() {
   const { data, loading: isLoading, error: fetchError } = useFetch();
@@ -13,51 +14,54 @@ export default function useAutocomplete() {
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [showSuggestions, setShowSuggestions] = useState(true);
   const throwAsyncError = useThrowAsyncError();
+  const debouncedInputValue = useDebounce(inputValue, 300);
 
   useEffect(() => {
-    // Reset selected index when filtered data changes
-    setSelectedIndex(-1);
-  }, [filteredData]);
+    const filterData = async (searchValue: string): Promise<Country[]> => {
+      // Simulate network delay
+      await new Promise((resolve) => setTimeout(resolve, 300));
 
-  const filterData = async (searchValue: string): Promise<Country[]> => {
-    // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 300));
+      return data.filter((country) =>
+        country.name.toLowerCase().startsWith(searchValue.toLowerCase())
+      );
+    };
 
-    return data.filter((country) =>
-      country.name.toLowerCase().startsWith(searchValue.toLowerCase())
-    );
-  };
+    const handleFiltering = async () => {
+      setIsFiltering(true);
+      setShowSuggestions(true);
 
-  const handleInputChange = async (value: string) => {
+      if (!debouncedInputValue) {
+        setFilteredData(data);
+        setMessage("");
+        setIsFiltering(false);
+        return;
+      }
+
+      try {
+        const filtered = await filterData(debouncedInputValue);
+
+        if (filtered.length === 0) {
+          setMessage("No countries found.");
+          setFilteredData([]);
+        } else {
+          setFilteredData(filtered);
+          setMessage("");
+        }
+      } catch (err) {
+        setMessage("Error filtering countries.");
+        setFilteredData([]);
+        throwAsyncError(err);
+      } finally {
+        setIsFiltering(false);
+      }
+    };
+
+    handleFiltering();
+  }, [debouncedInputValue, data, throwAsyncError]);
+
+  const handleInputChange = (value: string) => {
     setInputValue(value);
     setSelectedCountry(null);
-    setIsFiltering(true);
-    setShowSuggestions(true);
-
-    if (!value) {
-      setFilteredData(data);
-      setMessage("");
-      setIsFiltering(false);
-      return;
-    }
-
-    try {
-      const filtered = await filterData(value);
-
-      if (filtered.length === 0) {
-        setMessage("No countries found.");
-        setFilteredData([]);
-      } else {
-        setFilteredData(filtered);
-        setMessage("");
-      }
-    } catch (err) {
-      setMessage("Error filtering countries.");
-      setFilteredData([]);
-      throwAsyncError(err);
-    } finally {
-      setIsFiltering(false);
-    }
   };
 
   const handleInputFocus = () => {
