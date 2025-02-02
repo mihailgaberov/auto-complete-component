@@ -3,7 +3,6 @@ import styles from "./Suggestion.module.scss";
 interface Props {
   name: string;
   flag: string;
-  onClickHandler: () => void;
   searchValue: string;
   isSelected?: boolean;
 }
@@ -11,7 +10,6 @@ interface Props {
 export default function Suggestion({
   name,
   flag,
-  onClickHandler,
   searchValue,
   isSelected,
 }: Props) {
@@ -39,12 +37,9 @@ export default function Suggestion({
   };
 
   return (
-    <li
-      className={`${styles.container} ${isSelected ? styles.selected : ""}`}
-      onClick={onClickHandler}
-    >
+    <div className={`${styles.container} ${isSelected ? styles.selected : ""}`}>
       <span className={styles.flag}>{flag}</span>
       {highlightText(name, searchValue)}
-    </li>
+    </div>
   );
 }

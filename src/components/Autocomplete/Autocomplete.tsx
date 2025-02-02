@@ -55,14 +55,18 @@ export default function Autocomplete() {
       {showSuggestions && (
         <ul>
           {filteredData.map((country, index) => (
-            <Suggestion
+            <li
+              onClick={() => handleSuggestionClick(country.name)}
               key={country.name}
-              name={country.name}
-              flag={country.flag}
-              searchValue={inputValue}
-              isSelected={index === selectedIndex}
-              onClickHandler={() => handleSuggestionClick(country.name)}
-            />
+            >
+              <Suggestion
+                key={country.name}
+                name={country.name}
+                flag={country.flag}
+                searchValue={inputValue}
+                isSelected={index === selectedIndex}
+              />
+            </li>
           ))}
         </ul>
       )}
