@@ -21,6 +21,7 @@ export default function useAutocomplete() {
     setSelectedIndex(-1);
   }, [filteredData]);
 
+  // move the filtering to the debounced fetch call
   const filterData = async (searchValue: string) => {
     // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, 300));
