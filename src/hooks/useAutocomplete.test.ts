@@ -3,7 +3,6 @@ import { vi } from "vitest";
 import useAutocomplete from "./useAutocomplete";
 import * as useFetchHook from "./useFetch";
 
-// Mock the useFetch hook
 vi.mock("./useFetch", () => ({
   default: vi.fn(),
 }));
