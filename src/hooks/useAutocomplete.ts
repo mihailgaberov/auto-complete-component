@@ -17,7 +17,6 @@ export default function useAutocomplete() {
   const throwAsyncError = useThrowAsyncError();
 
   useEffect(() => {
-    // Reset selected index when filtered data changes
     setSelectedIndex(-1);
   }, [filteredData]);
 
